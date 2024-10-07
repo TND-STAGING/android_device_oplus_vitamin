@@ -76,13 +76,6 @@ service mtk.plpath.utils.link /system/bin/mtk_plpath_utils
     oneshot
     seclabel u:r:recovery:s0
 
-service wait_for_keymaster /system/bin/wait_for_keymaster
-    user root
-    group root system
-    priority -20
-    ioprio rt 0
-    seclabel u:r:recovery:s0
-
 service vendor.gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     interface android.hardware.gatekeeper@1.0::IGatekeeper default
     user root
@@ -91,10 +84,12 @@ service vendor.gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-ser
     seclabel u:r:recovery:s0
 
 service vendor.keymint-trustonic /vendor/bin/hw/android.hardware.security.keymint@1.0-service.trustonic
-    class early_hal
-    user nobody
+    user root
+    group root
+    disabled
+    oneshot
     seclabel u:r:recovery:s0
-
+    
 on property:crypto.ready=1
     start mobicore
     start vendor.keymint-trustonic
