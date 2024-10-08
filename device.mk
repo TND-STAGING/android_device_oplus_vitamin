@@ -10,81 +10,88 @@ LOCAL_PATH := device/oplus/ossi
 # A/B
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += \
-    boot \
-    dtbo \
-    system \
     system_ext \
-    product \
     vendor \
+    vendor_dlkm \
+    system \
+    boot \
     vendor_boot \
-    odm \
     vbmeta \
-    vbmeta_system 
+    vbmeta_system \
+    vbmeta_vendor \
+    product \
+    odm \
+    odm_dlkm
 
-# Update engine
 PRODUCT_PACKAGES += \
-    checkpoint_gc \
     update_engine \
     update_engine_sideload \
-    update_verifier
+    update_verifier \
+    checkpoint_gc
 
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/mtk_plpath_utils \
-    FILESYSTEM_TYPE_system=ext4 \
+    FILESYSTEM_TYPE_system=erofs \
     POSTINSTALL_OPTIONAL_system=true
 
-# Boot control HAL
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_vendor=true \
+    POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
+    FILESYSTEM_TYPE_vendor=erofs \
+    POSTINSTALL_OPTIONAL_vendor=true
+
+# Bootctrl
 PRODUCT_PACKAGES += \
-     android.hardware.boot@1.2-service \
-     android.hardware.boot@1.2-mtkimpl \
-     android.hardware.boot@1.2-mtkimpl.recovery
+    android.hardware.boot@1.2-mtkimpl \
+    android.hardware.boot@1.2-mtkimpl.recovery
 
 PRODUCT_PACKAGES_DEBUG += \
-    bootctrl
+     bootctrl 
 
+# Fastbootd
 PRODUCT_PACKAGES += \
-     bootctrl.mt6983 \
-     bootctrl.mt6983.recovery
+    android.hardware.fastboot@1.0-impl-mock \
+    fastbootd
+
+# Drm
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.4
 
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl \
     android.hardware.health@2.1-service
 
-# Build MT-PL-Utils
-PRODUCT_PACKAGES += \
-    mtk_plpath_utils \
-    mtk_plpath_utils.recovery
-
-# Keystore
-PRODUCT_PACKAGES += \
-    android.system.keystore2
-
-# Keymint
-PRODUCT_PACKAGES += \
-    android.hardware.security.keymint \
-    android.hardware.security.secureclock \
-    android.hardware.security.sharedsecret
-
-# Drm
-PRODUCT_PACKAGES += \
-    android.hardware.drm@1.4
-
 # Keymaster
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.1
 
-# Additional target Libraries
+# Additional Libraries
 TARGET_RECOVERY_DEVICE_MODULES += \
+    libion \
+    libxml2 \
     android.hardware.keymaster@4.1
 
-TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.keymaster@4.1.so
+RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.keymaster@4.1
 
-# Soong
-PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
+# Mtk plpath utils
+PRODUCT_PACKAGES += \
+    mtk_plpath_utils \
+    mtk_plpath_utils.recovery
 
-# Partitions
+# Keystore2
+PRODUCT_PACKAGES += \
+    android.system.keystore2
+
+# Dynamic Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
+# VNDK
+PRODUCT_TARGET_VNDK_VERSION := 31
+
+# API
+PRODUCT_SHIPPING_API_LEVEL := 31
