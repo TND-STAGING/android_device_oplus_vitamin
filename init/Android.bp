@@ -1,4 +1,3 @@
-
 cc_library_static {
     name: "libinit_ossi",
     header_libs: [

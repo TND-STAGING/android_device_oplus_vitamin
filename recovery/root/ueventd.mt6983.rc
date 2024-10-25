@@ -98,14 +98,28 @@
 #v4l2 codec
 /dev/vcu    0660 camera system
 
+#vdec-fmt
+/dev/vdec-fmt   0660 media system
+/dev/fmt_sync   0660 system system
+
 #v4l2 camera
 /dev/mtk_hcp     0660 camera system
 
+#explorer isp
+/dev/explorer_preisp      0666   cameraserver  camera
 # DRM node
 /dev/dri/card0            0660   system     system
 
 # MDDP node
 /dev/mddp                 0660   system     system
+
+# add for MIDAS
+/dev/midas_dev            0660   system     system
+/dev/binder_stats         0660   system     system
+
+#sensor
+/dev/hf_manager        0660    system    system
+/dev/ssc_interactive   0660    system    system
 
 # add the read write right of ttyUSB*
 /dev/bus/usb/*     	  0660   root       usb
@@ -195,9 +209,6 @@
 
 #MTK In-House TEE
 /dev/ttyACM0              0660   radio      radio
+
 #CCU
 /dev/ccu*      0660 system camera
-
-#elliptic sensor
-/dev/elliptic0            0644   system     system
-/dev/elliptic1            0644   system     system
