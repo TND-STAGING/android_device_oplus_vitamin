@@ -104,9 +104,6 @@ TARGET_USERIMAGES_USE_F2FS := true
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
-# System as root
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
-
 # Recovery
 TARGET_NO_RECOVERY := true
 BOARD_HAS_LARGE_FILESYSTEM := true
