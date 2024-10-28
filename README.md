@@ -1,4 +1,4 @@
-# Android device tree for Oplus Nord 3 (vitamin)
+# Android device tree for Oplus Nord 3 (ossi)
 
 # How-to compile it:
 
@@ -12,11 +12,11 @@
 ```
  - Clone TheNoobDevs-Staging twrp tree
 ```
-    git clone https://github.com/TND-STAGING/android_device_samsung_gta9.git -b twrp-14 device/samsung/gta9
+    git clone https://github.com/TND-STAGING/android_device_oplus_vitamin.git -b twrp-12.1 device/oplus/ossi
 ```
  - Prepare
 ```
-    export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_vitamin-eng
+    export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_ossi-eng
 ```
  - Run the Build Command
 ```
