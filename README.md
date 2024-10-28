@@ -23,3 +23,4 @@
     mka vendorbootimage
 ```
 # Contributors
+[KO-HI-DEV](https://github.com/Ko-Hi-Dev)
